@@ -23,9 +23,34 @@ from torchvision import transforms
 from utils import ImagesDataset
 import os
 
-
 def parse_args():
     parser = argparse.ArgumentParser(description="Train AdaIN Style Transfer Model")
+
+    # Data paths
+    parser.add_argument(
+        "--images_train_path",
+        type=str,
+        required=True,
+        help="Path to training images directory",
+    )
+    parser.add_argument(
+        "--images_val_path",
+        type=str,
+        required=True,
+        help="Path to validation images directory",
+    )
+    parser.add_argument(
+        "--images_test_path",
+        type=str,
+        required=True,
+        help="Path to test images directory",
+    )
+    parser.add_argument(
+        "--styles_train_path",
+        type=str,
+        required=True,
+        help="Path to training styles directory",
+    )
 
     # Training hyperparameters
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate")
@@ -81,10 +106,12 @@ transform = [
     RandomCrop((224, 224)),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ]
-images_train_path = "/kaggle/working/image_train"
-images_test_path = "/kaggle/working/test_path"
-images_val_path = "/kaggle/working/test_path"
-styles_train_path = "/kaggle/working/style_path"
+# use parsed paths
+args = parse_args()
+images_train_path = args.images_train_path
+images_test_path = args.images_test_path
+images_val_path = args.images_val_path
+styles_train_path = args.styles_train_path
 images_train_paths = [
     os.path.join(root, file)
     for root, dirs, files in os.walk(images_train_path)
