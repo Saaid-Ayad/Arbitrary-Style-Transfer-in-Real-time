@@ -147,35 +147,3 @@ def resizeWithAspectRatio(image):
 
   return Resize(new_shape)(image)
 
-
-# def evaluate(data,y_styles,alpha):
-#   model.eval()
-#   loss = 0.0
-#   con_loss = 0.0
-#   sty_loss = 0.0
-#   styles_iter = iter(y_styles)
-#   with torch.no_grad():
-
-#     for i,images in enumerate(data):
-#       try:
-#         y_style = next(styles_iter)
-#         images = images.to(device)
-#         y_style = y_style.to(device)
-
-#         y = model(images,y_style)
-#         y_gen,ada_out = y['x_gen'],y['ada_out']
-#         content_loss = c_loss(y_gen,ada_out)
-#         style_loss = s_loss(y_gen,y_style)
-#         loss += content_loss.item() + alpha*style_loss.item()
-#         con_loss += content_loss.item()
-#         sty_loss += style_loss.item()
-
-#       except StopIteration:
-#         styles_iter = iter(y_styles)
-#         continue
-#     loss = loss/len(data)
-#     con_loss = con_loss/len(data)
-#     sty_loss = sty_loss/len(data)
-#     # print(f'content loss {con_loss}, style loss {sty_loss}, total loss {loss}')
-#     return con_loss,sty_loss,loss
-
